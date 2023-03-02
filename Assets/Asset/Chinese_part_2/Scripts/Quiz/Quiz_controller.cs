@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Linq;
 
 public class Quiz_controller : MonoBehaviour
 {
@@ -11,8 +11,8 @@ public class Quiz_controller : MonoBehaviour
     public static Quiz_controller Instance { get { return instance; } }
     public GameObject[] Q;
     public Button nextbutton;
-    public GameObject correctanswer;
     private int i;
+    public Color correctAnsColor, _correctAnsColor;
    
 
     private void Awake()
@@ -30,6 +30,8 @@ public class Quiz_controller : MonoBehaviour
     private void Start()
     {
         i = 0;
+        nextbutton.gameObject.SetActive(false);
+
     }
 
     public void OnNextButtonClick()
@@ -39,6 +41,7 @@ public class Quiz_controller : MonoBehaviour
             i++;
             Q[i-1].SetActive(false);
             Q[i].SetActive(true);
+            nextbutton.gameObject.SetActive(false);
             
         }
         if(i== Q.Length-1)
@@ -48,6 +51,16 @@ public class Quiz_controller : MonoBehaviour
 
         else { return; }
         
+    }
+
+    public void CheckCorrectAnswer()
+    {
+        Debug.Log("check CheckCorrectAnswer");
+        GameObject selectedOption = Q[i].transform.Find("Options_Image_holder").GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().gameObject;
+        if (selectedOption.name.Contains("Answer") && i< Q.Length-1)
+        {
+            nextbutton.gameObject.SetActive(true);
+        }
     }
 
    
