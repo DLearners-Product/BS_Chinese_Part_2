@@ -11,6 +11,7 @@ public class PanelController : MonoBehaviour
     {
         closeButton.gameObject.SetActive(true);
     }
+    //Function to close the panel
     public void OnCloseButtonClick()
     {
         this.gameObject.SetActive(false);

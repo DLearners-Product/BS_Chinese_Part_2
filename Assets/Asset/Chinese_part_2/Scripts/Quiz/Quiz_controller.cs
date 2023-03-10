@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 public class Quiz_controller : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class Quiz_controller : MonoBehaviour
     public Button nextbutton;
     private int i;
     public Color correctAnsColor, _correctAnsColor;
-   
+    public static int Q_Count = 1;
+    public TextMeshProUGUI count;
+
 
     private void Awake()
     {
@@ -31,6 +34,13 @@ public class Quiz_controller : MonoBehaviour
     {
         i = 0;
         nextbutton.gameObject.SetActive(false);
+        
+        // counter implementation using playerprefs
+        if (PlayerPrefs.GetInt("counter") != 0)
+        {
+            int x = PlayerPrefs.GetInt("counter");
+            count.text = x + "/ 5";
+        }
 
     }
 
@@ -42,17 +52,20 @@ public class Quiz_controller : MonoBehaviour
             Q[i-1].SetActive(false);
             Q[i].SetActive(true);
             nextbutton.gameObject.SetActive(false);
-            
+            //counter logic
+            Q_Count++;
+            PlayerPrefs.SetInt("counter", Q_Count);
+
         }
         if(i== Q.Length-1)
         {
             nextbutton.gameObject.SetActive(false);
+            PlayerPrefs.DeleteAll();
         }
 
-        else { return; }
-        
+        else { return; }  
     }
-
+    // Function to check correct answer
     public void CheckCorrectAnswer()
     {
         Debug.Log("check CheckCorrectAnswer");

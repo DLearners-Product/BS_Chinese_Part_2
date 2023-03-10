@@ -6,6 +6,8 @@ TagManager:
   tags:
   - answer
   - Immersive
+  - lantern
+  - longlantern
   layers:
   - Default
   - TransparentFX
