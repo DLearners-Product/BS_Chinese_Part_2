@@ -7,14 +7,12 @@ public class Chinese_town_planner_controller : MonoBehaviour
     public Button nextButton;
     public Button backButton;
     public GameObject[] contents;
-    //public AudioClip[] contentClips;
     private int i;
 
     public void Start()
     {
         i = 0;
         contents[i].SetActive(true);
-        //SoundManager.Instance.Play(contentClips[i]);
         backButton.gameObject.SetActive(false);
 
     }
@@ -27,7 +25,7 @@ public class Chinese_town_planner_controller : MonoBehaviour
             i++;
             contents[i - 1].SetActive(false);
             contents[i].SetActive(true);
-            //SoundManager.Instance.Play(contentClips[i]);
+           
         }
 
         if (i == contents.Length - 1)
@@ -56,7 +54,6 @@ public class Chinese_town_planner_controller : MonoBehaviour
             i--;
             contents[i + 1].SetActive(false);
             contents[i].SetActive(true);
-            //SoundManager.Instance.Play(contentClips[i]);
         }
 
         if (i == contents.Length - 1)
