@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.UI;
 
 public class SummaryTextSlot : MonoBehaviour, IDropHandler
 {
     public List<string> correctAnswers;
     private int i;
-
+    public Image greatwallImage;
    private void Start()
     {
         i = 0;
@@ -17,9 +16,9 @@ public class SummaryTextSlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-       // Debug.Log("OnDrop");
+       Debug.Log("OnDrop");
 
-        SummaryTextDrag dragitem = eventData.pointerDrag.GetComponent<SummaryTextDrag>();
+        Piece_drag dragitem = eventData.pointerDrag.GetComponent<Piece_drag>();
 
         if (dragitem != null)
         {
