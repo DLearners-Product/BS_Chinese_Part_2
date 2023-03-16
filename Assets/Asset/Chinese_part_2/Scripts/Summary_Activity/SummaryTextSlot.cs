@@ -8,7 +8,6 @@ public class SummaryTextSlot : MonoBehaviour, IDropHandler
 {
     public List<string> correctAnswers;
     private int i;
-    public Image greatwallImage;
    private void Start()
     {
         i = 0;
@@ -18,7 +17,7 @@ public class SummaryTextSlot : MonoBehaviour, IDropHandler
     {
        Debug.Log("OnDrop");
 
-        Piece_drag dragitem = eventData.pointerDrag.GetComponent<Piece_drag>();
+        SummaryTextDrag dragitem = eventData.pointerDrag.GetComponent<SummaryTextDrag>();
 
         if (dragitem != null)
         {

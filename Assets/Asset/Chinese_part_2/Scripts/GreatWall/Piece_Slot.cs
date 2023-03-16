@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Piece_Slot : MonoBehaviour, IDropHandler
 {
     public GameObject correctAnswer;
-  
+    
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -22,13 +22,13 @@ public class Piece_Slot : MonoBehaviour, IDropHandler
                     dragitem.originalParent = this.transform;
                     dragitem.transform.SetParent(this.transform);
                     dragitem.transform.position = this.transform.position;
-                    dragitem.transform.localScale = this.transform.localScale;
+                    dragitem.transform.localScale = new Vector3(1f, 1f, 0f);
+                    GreatwallActivityController.correctCount++;
                     if (dragitem.originalParent == this.transform)
                     {
+                        dragitem.canvasGroup.alpha = 1f;
                         dragitem.enabled = false;
                     }
-
-                
             }
             else
             {

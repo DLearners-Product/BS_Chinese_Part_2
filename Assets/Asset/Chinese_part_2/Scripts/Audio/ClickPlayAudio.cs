@@ -13,6 +13,6 @@ public class ClickPlayAudio : MonoBehaviour
 
     public void Onclick()
     {
-        SoundManager.Instance.EffectsSource.Play();
+        SoundManager.Instance.Play(audioclip);
     }
 }

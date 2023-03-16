@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class SummaryActivityController : MonoBehaviour
 {
@@ -15,11 +14,15 @@ public class SummaryActivityController : MonoBehaviour
     int correctanswercount;
     public GameObject draganddropSlide;
     public GameObject currentSlide;
+    public AudioClip[] instructionClips;
+    private int i;
    
     void Start()
     {
+        i = 0;
         correctanswercount = 0;
         nextButton.gameObject.SetActive(false);
+        SoundManager.Instance.Stop();
     }
 
   //Functions to change sprite on click
@@ -49,6 +52,11 @@ public class SummaryActivityController : MonoBehaviour
     {
         currentSlide.SetActive(false);
         draganddropSlide.SetActive(true);
+        i++;
         
+    }
+    public void OnInstructionButtonClick()
+    {
+        SoundManager.Instance.Play(instructionClips[i]);
     }
 }

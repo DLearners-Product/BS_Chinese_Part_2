@@ -9,8 +9,6 @@ public class SoundManager : MonoBehaviour
     public AudioSource EffectsSource;
     public AudioSource MusicSource;
 
-
-
     private void Awake()
     {
         if (instance)

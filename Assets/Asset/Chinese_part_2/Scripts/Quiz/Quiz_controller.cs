@@ -11,11 +11,23 @@ public class Quiz_controller : MonoBehaviour
     private static Quiz_controller instance;
     public static Quiz_controller Instance { get { return instance; } }
     public GameObject[] Q;
+    public GameObject currentSlide;
+    public GameObject outroSlide;
+    public GameObject instructionOverlay;
+    public AudioClip[] questionClips;
     public Button nextbutton;
+    public Button instructionButton;
+    public Sprite instructionSprite;
+    public Sprite closeSprite;
     private int i;
+    private bool isOverlay;
     public Color correctAnsColor, _correctAnsColor;
-    public static int Q_Count = 1;
     public TextMeshProUGUI count;
+    public static int Q_Count = 1;
+    public AudioClip instructionClip;
+    public AudioClip correctClip;
+    public AudioClip wrongClip;
+   
 
 
     private void Awake()
@@ -34,14 +46,22 @@ public class Quiz_controller : MonoBehaviour
     {
         i = 0;
         nextbutton.gameObject.SetActive(false);
-        
-        // counter implementation using playerprefs
-        if (PlayerPrefs.GetInt("counter") != 0)
-        {
-            int x = PlayerPrefs.GetInt("counter");
-            count.text = x + "/ 5";
-        }
+        count.text = Q_Count + " / 5";
+        SoundManager.Instance.Play(questionClips[i]);
+        instructionOverlay.SetActive(false);
+        isOverlay = false;
+    }
 
+    private void Update()
+    {
+        if (Q_Count < 6)
+        {
+            count.text = Q_Count + " / 5";
+        }
+        else
+        {
+            Q_Count = 0;
+        }
     }
 
     public void OnNextButtonClick()
@@ -49,18 +69,22 @@ public class Quiz_controller : MonoBehaviour
         if (i < Q.Length)
         {
             i++;
+            if (i == Q.Length)
+            {
+                i = 0;
+                Q_Count = 1;
+                currentSlide.SetActive(false);
+                outroSlide.SetActive(true);
+                nextbutton.gameObject.SetActive(false);
+                return;
+            }
             Q[i-1].SetActive(false);
             Q[i].SetActive(true);
             nextbutton.gameObject.SetActive(false);
-            //counter logic
+            SoundManager.Instance.Play(questionClips[i]);
             Q_Count++;
-            PlayerPrefs.SetInt("counter", Q_Count);
 
-        }
-        if(i== Q.Length-1)
-        {
-            nextbutton.gameObject.SetActive(false);
-            PlayerPrefs.DeleteAll();
+
         }
 
         else { return; }  
@@ -70,10 +94,37 @@ public class Quiz_controller : MonoBehaviour
     {
         Debug.Log("check CheckCorrectAnswer");
         GameObject selectedOption = Q[i].transform.Find("Options_Image_holder").GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().gameObject;
-        if (selectedOption.name.Contains("Answer") && i< Q.Length-1)
+        if (selectedOption.name.Contains("Answer") && i< Q.Length)
         {
             nextbutton.gameObject.SetActive(true);
+            SoundManager.Instance.PlayMusic(correctClip);
+            
         }
+        else
+        {
+            SoundManager.Instance.PlayMusic(wrongClip);
+        }
+    }
+
+    public void OnInstructionButtonClick()
+    {
+        if(!isOverlay)
+        {
+            isOverlay = true;
+            instructionOverlay.SetActive(true);
+            SoundManager.Instance.Play(instructionClip);
+            instructionButton.gameObject.GetComponent<Image>().sprite = closeSprite;
+        }
+        else
+        {
+            isOverlay = false;
+            instructionOverlay.SetActive(false);
+            SoundManager.Instance.Stop();
+            instructionButton.gameObject.GetComponent<Image>().sprite = instructionSprite;
+
+        }
+       
+
     }
 
    

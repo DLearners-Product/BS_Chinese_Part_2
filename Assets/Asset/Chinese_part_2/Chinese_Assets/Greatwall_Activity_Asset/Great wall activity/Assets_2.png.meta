@@ -7,7 +7,7 @@ TextureImporter:
     second: Full_Image
   - first:
       213: -3777703653061483160
-    second: Assets_2_1
+    second: piece_8
   - first:
       213: 2364458928693524032
     second: piece_7
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Assets_2_1
+      name: piece_8
       rect:
         serializedVersion: 2
         x: 1322
