@@ -42,8 +42,6 @@ public class SummaryTextDrag : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         canvasGroup.alpha = 1f;
         this.transform.SetParent(originalParent);
         canvasGroup.blocksRaycasts = true;
-
-
     }
 
 

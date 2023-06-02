@@ -38,6 +38,8 @@ public class SummaryTextSlot : MonoBehaviour, IDropHandler
                     }
 
                 }
+                SummaryActivityController.correctCount++;
+                Debug.Log(SummaryActivityController.correctCount);
             }
             else
             {

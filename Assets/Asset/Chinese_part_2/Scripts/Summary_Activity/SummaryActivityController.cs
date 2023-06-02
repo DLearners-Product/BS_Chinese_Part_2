@@ -14,15 +14,19 @@ public class SummaryActivityController : MonoBehaviour
     int correctanswercount;
     public GameObject draganddropSlide;
     public GameObject currentSlide;
+    public GameObject gameWonOverlay;
     public AudioClip[] instructionClips;
     private int i;
-   
+    public static int correctCount = 0;
+    public AudioClip VictoryClip;
+  
     void Start()
     {
         i = 0;
         correctanswercount = 0;
         nextButton.gameObject.SetActive(false);
         SoundManager.Instance.Stop();
+        
     }
 
   //Functions to change sprite on click
@@ -46,17 +50,30 @@ public class SummaryActivityController : MonoBehaviour
             nextButton.gameObject.SetActive(true);
             correctanswercount = 0;
         }
+
+       if ( correctCount == 20)
+        {
+            Debug.Log(correctCount);
+            Invoke("GameWon", 1f);
+            correctCount = 0;
+            
+        }
     }
 
     public void OnNextButtonClick()
     {
-        currentSlide.SetActive(false);
         draganddropSlide.SetActive(true);
-        i++;
-        
+        i++;   
     }
     public void OnInstructionButtonClick()
     {
         SoundManager.Instance.Play(instructionClips[i]);
+    }
+
+    public void GameWon()
+    {
+        gameWonOverlay.SetActive(true);
+        SoundManager.Instance.PlayMusic(VictoryClip);
+
     }
 }
